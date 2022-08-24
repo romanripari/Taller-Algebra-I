@@ -20,14 +20,18 @@ func n
  | otherwise = -1
 
 -- Una especie de IF ELIF ELSE
+{-
 signo n
  | n > 0 = 1
  | n == 0 = 0
  | otherwise = -1
+-}
 
+{--
 maximo x y
  | x >= y = x
  | otherwise = y
+--}
 
 --Funciones cuando no hay otherwise: Non-exhaustive patterns
 f1 n
@@ -58,7 +62,6 @@ f5 n
 f0 0 = 1
 f0 n = 0
 
-
 -- Si se pone al revés, funcione pero advierte que es redundante
 signo2 0 = 0
 signo2 n
@@ -70,13 +73,59 @@ cantidadDeSoluciones b c
  | b^2 - 4*c == 0 = 1
  | otherwise = 0
  
-
 cantidadDeSoluciones2 b c 
  | d > 0 = 2
  | d == 0 = 1
  | otherwise = 0
  where d = b^2 - 4*c 
  
- 
+funcionRara1 :: Float -> Float -> Bool -> Bool
+funcionRara1 x y z = ( x >= y ) || z
 
+--o bien:
+funcionRara :: Float -> Float -> Bool -> Bool
+funcionRara _ _ True = True
+funcionRara x y False = x >= y
+
+-- DOMINIO Y CODOMINIO = Signatura
+
+maximo :: Int -> Int -> Int 
+maximo x y
+ | x >= y = x
+ | otherwise = y
+
+
+signo :: Int -> Int
+signo n
+ | n > 0 = 1
+ | n == 0 = 0
+ | otherwise = -1
+
+
+esPar :: Int -> Bool
+esPar n = mod n 2 == 0
+
+esImpar :: Int -> Bool
+esImpar n = not (esPar n)
+
+-- Tarea:
+absoluto n   
+ | n < 0 = (-n)
+ | otherwise = n
+
+maximoabsoluto m n  
+ |(absoluto m) > (absoluto n) = m
+ |otherwise = n
+
+maximo3 x y z=  maximo (maximo x y) z
+
+algunoEs0 x y = x == 0 || y == 0
+
+ambosSon0 x y = x == 0 && y == 0
+
+esMultiploDe m n = (mod m n == 0) || (mod n m == 0  )
+
+digitoUnidades n = mod n 10 
+
+digitoDecenas n = mod (div n 10) 10 
 
