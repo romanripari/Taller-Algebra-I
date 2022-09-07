@@ -110,7 +110,22 @@ esPar n = mod n 2 == 0
 esImpar :: Int -> Bool
 esImpar n = not (esPar n)
 
+
 -- Tarea:
+{-
+Implementar las siguientes funciones, especificando su signatura.
+1 absoluto: calcula el valor absoluto de un n ́umero entero.
+2 maximoabsoluto: devuelve el m ́aximo entre el valor absoluto de dos n ́umeros enteros.
+3 maximo3: devuelve el m ́aximo entre tres n ́umeros enteros.
+4 algunoEs0: dados dos n ́umeros racionales, decide si alguno de los dos es igual a 0 (hacerlo
+dos veces, una sin usar y otra usando pattern matching).
+5 ambosSon0: dados dos n ́umeros racionales, decide si ambos son iguales a 0 (hacerlo dos
+veces, una sin usar y otra usando pattern matching).
+6 esMultiploDe: dados dos n ́umeros naturales, decidir si el primero es m ́ultiplo del segundo.
+7 digitoUnidades: dado un n ́umero natural, extrae su d ́ıgito de las unidades.
+8 digitoDecenas: dado un n ́umero natural, extrae su d ́ıgito de las decenas.
+-}
+
 absoluto n   
  | n < 0 = (-n)
  | otherwise = n
