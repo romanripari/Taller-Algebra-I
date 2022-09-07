@@ -69,13 +69,16 @@ medioFactorial n
 {--
 1 Escribir una función que determine la suma de dígitos de un número positivo. Para esta
 función pueden utilizar div y mod.
-
-2 Implementar una función que determine si todos los dígitos de un número son iguales.
 --}
+
 
 sumaDigitos n
  | n < 10 = n
  | otherwise = mod n 10 + sumaDigitos (div n 10)
+
+{--
+2 Implementar una función que determine si todos los dígitos de un número son iguales.
+--}
 
 digitosIguales n
  | n < 10 = True
