@@ -11,7 +11,7 @@ sumaDivisoresHasta x y
 
 
 menorDivisor :: Int -> Int
-menorDivisor x = auxiliar x 2
+menorDivisor x = auxiliarDivisor x 2
 
 auxiliarDivisor :: Int -> Int -> Int
 auxiliarDivisor x y 
@@ -19,17 +19,22 @@ auxiliarDivisor x y
  | otherwise = auxiliarDivisor x (y+1)
  
 esPrimo :: Int -> Bool
-esPrimo x
- | x == 1 = False 
- | otherwise = menorDivisor x == x
+esPrimo x 
+  | x == 1 = False 
+  | otherwise = menorDivisor x == x
 
 nEsimoPrimo :: Int -> Int
-nEsimoPrimo n = primoOrden n 2 1
+nEsimoPrimo n = primoDescendiendo n 2
+--nEsimoPrimo n = primoascendiendo n 2 1
  
-primoOrden :: Int -> Int -> Int -> Int
-primoOrden n x m
+primoascendiendo :: Int -> Int -> Int -> Int
+primoascendiendo n x m
  | n == m = x
- | esPrimo (x+1) == True =  primoOrden n (x+1) (m+1)
- | esPrimo (x+1) == False =  primoOrden n (x+1) m
+ | esPrimo (x+1) == True =  primoascendiendo n (x+1) (m+1)
+ | esPrimo (x+1) == False =  primoascendiendo n (x+1) m
  
-
+primoDescendiendo :: Int -> Int -> Int
+primoDescendiendo n x
+ | n == 1 = x
+ | esPrimo (x+1) == False = primoDescendiendo n (x+1)
+ | esPrimo (x+1) == True = primoDescendiendo (n-1) (x+1)
