@@ -59,6 +59,20 @@ f5 x y z
  | x == y = z 
  | x ** y == y = z
  | otherwise = z
- 
- 
+
+
+suma :: ( Float , Float ) -> ( Float , Float ) -> ( Float , Float )
+suma v w = (( fst v ) + ( fst w ) , ( snd v ) + ( snd w ) )
+
+esOrigen :: ( Float , Float ) -> Bool
+esOrigen (a, b)
+ | (a, b) == (0 , 0) = True
+ | otherwise = False
+
+angulo0 :: ( Float , Float ) -> Bool
+angulo0 (a, b)
+ | (a, b) == (a , 0) = True
+ | (a, b) == (0 , b) = True
+ | otherwise = False
+
 

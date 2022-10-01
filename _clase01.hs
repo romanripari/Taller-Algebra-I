@@ -4,7 +4,7 @@ g x y z = x + y + z * z
 
 doble x = x * 2
 
-suma :: Int -> Int -> Float
+suma :: Float -> Float -> Float
 --suma x y = 2 ** 8000000000
 suma x y = x + y
 
