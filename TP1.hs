@@ -49,6 +49,8 @@ cantidad3Pseudoprimos n
  | es3Pseudoprimo n = 1 + cantidad3Pseudoprimos (n-1)
  | otherwise = cantidad3Pseudoprimos (n-1)
 
+kesimo2y3Pseudoprimo :: Integer -> Integer
+
 {-
 
 esPrimo :: Integer -> Bool
