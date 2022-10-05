@@ -145,7 +145,7 @@ maximo l
 maximo_PM :: [Int] -> Int
 maximo_PM [] = 0
 maximo_PM ( x : xs ) = maximoQue x xs
- 
+
 -- Auxiliar
 maximoQue :: Int -> [Int] -> Int
 maximoQue n [] = n
@@ -156,31 +156,49 @@ maximoQue n ( x : xs)
 ordenar :: [Int] -> [Int] 
 ordenar l
  | l == [] = []
- | 
+ | (tail l) == [] = (head l) : []
+ | (head l) > (head (ordenar (tail l))) = (head (ordenar (tail l))) : ordenar ((head l) : tail (ordenar (tail l)) )
+ | otherwise = (head l) : ordenar ((head (ordenar (tail l))) : tail (ordenar (tail l)) )
 
+ordenar_PM :: [Int] -> [Int] 
+ordenar_PM [] = []
+ordenar_PM ( x : xs ) 
+ | xs == [] = x : []
+ | x > (head (ordenar_PM xs)) = (head (ordenar_PM xs)) : ordenar_PM (x : tail (ordenar_PM xs) )
+ | otherwise = x : ordenar_PM ((head (ordenar_PM xs)) : tail (ordenar_PM xs) )
 
+quitar :: Int -> [Int] -> [Int]
+quitar n l
+ | l == [] = []
+ | head l == n = (tail l)
+ | otherwise = (head l) : quitar n (tail l)
 
+quitar_PM :: Int -> [Int] -> [Int]
+quitar_PM n [] = []
+quitar_PM n ( x : xs) 
+ | x == n = xs
+ | otherwise = x: quitar_PM n xs
 
+hayRepetidos :: [Int] -> Bool
+hayRepetidos l
+ | l == [] = False
+ | tail l == [] = False
+ | head (ordenar_PM l) == head (tail (ordenar_PM l)) = True
+ | otherwise = hayRepetidos (tail (ordenar_PM l))
 
+hayRepetidos_PM :: [Int] -> Bool
+hayRepetidos_PM [] = False
+hayRepetidos_PM ( x : xs )
+ | xs == [] = False
+ | head (ordenar_PM (x:xs)) == head (tail (ordenar_PM (x:xs))) = True
+ | otherwise = hayRepetidos_PM (tail (ordenar_PM (x:xs)))
 
-
-
-{-
-▶ ordenar :: [Int] -> [Int] que ordena los elementos de una lista de forma creciente.
-▶ quitar :: Int -> [Int] -> [Int] que elimina la primera aparici ́on del elemento en la lista (de haberla).
-▶ hayRepetidos :: [Int] -> Bool que indica si una lista tiene elementos repetidos.
-▶ eliminarRepetidos :: [Int] -> [Int] que deja en la lista una  ́unica aparici ́on de cada elemento, eliminando las repeticiones adicionales.
--}
-
-
-
-
-
-
-
-
-
-
+eliminarRepetidos :: [Int] -> [Int]
+eliminarRepetidos l
+ | l == [] = []
+ | tail l == [] = l
+ | head (ordenar_PM l) == head (tail (ordenar_PM l)) = tail (ordenar_PM l)
+ | otherwise = head (ordenar_PM l) : eliminarRepetidos (tail (ordenar_PM l))
 
 
 
