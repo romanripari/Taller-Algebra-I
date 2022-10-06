@@ -16,14 +16,34 @@ True
 -}
 
 sonCoprimos :: Integer -> Integer -> Bool
-sonCoprimos a b = mcdRecursivo a b == 1
+sonCoprimos a b = mcd a b == 1
 
 -- Auxiliares:
-mcdRecursivo :: Integer -> Integer -> Integer
-mcdRecursivo a b
+mcd :: Integer -> Integer -> Integer
+mcd a b
  | b == 0 = a
- | a > b = mcdRecursivo b (mod a b)
- | otherwise = mcdRecursivo a (mod b a)
+ | a > b = mcd b (mod a b)
+ | otherwise = mcd a (mod b a)
+
+{-
+(4 : 12)
+mcd 4 12
+(otherwise = mcd 4 (mod 12 4))
+mcd 4 0
+(b == 0 = a )
+4
+
+(7 : 10)
+mcd 7 10
+(otherwise = mcd 7 (mod 10 7))
+mcd 7 3 
+(a > b = mcd 3 (mod 7 3))
+mcd 3 1
+(a > b = mcd 1 (mod 3 1))
+mcd 1 0
+(b == 0 = a)
+1
+-}
 
 {- Ejercicio 2
 
@@ -49,12 +69,16 @@ esKPseudoprimo k p
   where calculo = (k ^ (p-1)) - 1
 
 esPrimo :: Integer -> Bool
-esPrimo x = x /= 1 && auxiliarDivisor x 2 == x
+esPrimo x = x /= 1 && menorDivisor x == x
 
-auxiliarDivisor :: Integer -> Integer -> Integer
-auxiliarDivisor x y
+
+menorDivisor :: Integer -> Integer
+menorDivisor dividendo = auxiliarDivisorDesde dividendo 2
+
+auxiliarDivisorDesde :: Integer -> Integer -> Integer
+auxiliarDivisorDesde x y
  | mod x y == 0 = y
- | otherwise = auxiliarDivisor x (y+1)
+ | otherwise = auxiliarDivisorDesde x (y+1)
 
 {- Ejercicio 3
 
