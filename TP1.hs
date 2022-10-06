@@ -16,12 +16,12 @@ True
 -}
 
 sonCoprimos :: Integer -> Integer -> Bool
-sonCoprimos a b = mcdRecursivo a b == 1  
+sonCoprimos a b = mcdRecursivo a b == 1
 
 -- Auxiliares:
 mcdRecursivo :: Integer -> Integer -> Integer
-mcdRecursivo a b 
- | b == 0 = a 
+mcdRecursivo a b
+ | b == 0 = a
  | a > b = mcdRecursivo b (mod a b)
  | otherwise = mcdRecursivo a (mod b a)
 
@@ -39,20 +39,20 @@ False
 -}
 
 es2Pseudoprimo :: Integer -> Bool
-es2Pseudoprimo p = esKPseudoprimo 2 p 
+es2Pseudoprimo p = esKPseudoprimo 2 p
 
 -- Auxiliares:
 esKPseudoprimo :: Integer -> Integer -> Bool
-esKPseudoprimo k p 
+esKPseudoprimo k p
  | mod calculo p == 0 && not (esPrimo p)  = True
- | otherwise = False 
+ | otherwise = False
   where calculo = (k ^ (p-1)) - 1
 
 esPrimo :: Integer -> Bool
 esPrimo x = x /= 1 && auxiliarDivisor x 2 == x
 
 auxiliarDivisor :: Integer -> Integer -> Integer
-auxiliarDivisor x y 
+auxiliarDivisor x y
  | mod x y == 0 = y
  | otherwise = auxiliarDivisor x (y+1)
 
@@ -70,14 +70,14 @@ cantidad3Pseudoprimos 702
 -}
 
 cantidad3Pseudoprimos :: Integer -> Integer
-cantidad3Pseudoprimos n 
+cantidad3Pseudoprimos n
  | n == 1 = 0
  | es3Pseudoprimo n = 1 + cantidad3Pseudoprimos (n-1)
  | otherwise = cantidad3Pseudoprimos (n-1)
 
 -- Auxiliares:
 es3Pseudoprimo :: Integer -> Bool
-es3Pseudoprimo p = esKPseudoprimo 3 p 
+es3Pseudoprimo p = esKPseudoprimo 3 p
 
 {- Ejercicio 4
 
@@ -121,11 +121,11 @@ esCarmichael n = esCarmichaelHasta n 1
 -- Auxiliares:
 esCarmichaelHasta :: Integer -> Integer -> Bool
 esCarmichaelHasta n a
- | a >= n = True 
+ | a >= n = True
  | not (esKPseudoprimo a n) = False
- | otherwise = esCarmichaelHasta n (siguienteCoprimo n (a+1) ) 
+ | otherwise = esCarmichaelHasta n (siguienteCoprimo n (a+1) )
 
 siguienteCoprimo :: Integer -> Integer -> Integer
-siguienteCoprimo n a 
+siguienteCoprimo n a
  | sonCoprimos n a = a
  | otherwise = siguienteCoprimo n (a+1)
