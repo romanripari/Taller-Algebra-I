@@ -71,7 +71,6 @@ esKPseudoprimo k p
 esPrimo :: Integer -> Bool
 esPrimo x = x /= 1 && menorDivisor x == x
 
-
 menorDivisor :: Integer -> Integer
 menorDivisor dividendo = auxiliarDivisorDesde dividendo 2
 
@@ -117,14 +116,14 @@ kesimo2y3Pseudoprimo 6
 -}
 
 kesimo2y3Pseudoprimo :: Integer -> Integer
-kesimo2y3Pseudoprimo k = kesimo2y3PseudoprimoHasta k 3
+kesimo2y3Pseudoprimo k = kesimo2y3PseudoprimoDesde k 3
 
 -- Auxiliares:
-kesimo2y3PseudoprimoHasta :: Integer -> Integer -> Integer
-kesimo2y3PseudoprimoHasta k x
- | k == 0 = x
- | es2Pseudoprimo (x+1) && es3Pseudoprimo (x+1) = kesimo2y3PseudoprimoHasta (k-1) (x+1)
- | otherwise = kesimo2y3PseudoprimoHasta k (x+1)
+kesimo2y3PseudoprimoDesde :: Integer -> Integer -> Integer
+kesimo2y3PseudoprimoDesde k x
+ | k == 0 = (x-1)
+ | es2Pseudoprimo (x) && es3Pseudoprimo (x) = kesimo2y3PseudoprimoDesde (k-1) (x+1)
+ | otherwise = kesimo2y3PseudoprimoDesde k (x+1)
 
 {- Ejercicio 5
 
