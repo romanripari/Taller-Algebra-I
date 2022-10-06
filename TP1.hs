@@ -63,10 +63,10 @@ es2Pseudoprimo p = esKPseudoprimo 2 p
 
 -- Auxiliares:
 esKPseudoprimo :: Integer -> Integer -> Bool
-esKPseudoprimo k p
- | mod calculo p == 0 && not (esPrimo p)  = True
+esKPseudoprimo k n
+ | mod calculo n == 0 && not (esPrimo n)  = True
  | otherwise = False
-  where calculo = (k ^ (p-1)) - 1
+  where calculo = (k ^ (n-1)) - 1
 
 esPrimo :: Integer -> Bool
 esPrimo x = x /= 1 && menorDivisor x == x
@@ -97,6 +97,7 @@ cantidad3Pseudoprimos n
  | n == 1 = 0
  | es3Pseudoprimo n = 1 + cantidad3Pseudoprimos (n-1)
  | otherwise = cantidad3Pseudoprimos (n-1)
+
 
 -- Auxiliares:
 es3Pseudoprimo :: Integer -> Bool
@@ -143,12 +144,13 @@ esCarmichael n = esCarmichaelHasta n 1
 
 -- Auxiliares:
 esCarmichaelHasta :: Integer -> Integer -> Bool
-esCarmichaelHasta n a
- | a >= n = True
- | not (esKPseudoprimo a n) = False
- | otherwise = esCarmichaelHasta n (siguienteCoprimo n (a+1) )
+esCarmichaelHasta n base
+ | base = n = True
+ | not (esKPseudoprimo base n) = False
+ | otherwise = esCarmichaelHasta n (siguienteCoprimo n (base+1) )
 
 siguienteCoprimo :: Integer -> Integer -> Integer
-siguienteCoprimo n a
- | sonCoprimos n a = a
- | otherwise = siguienteCoprimo n (a+1)
+siguienteCoprimo n base
+ | sonCoprimos n base = base
+ | otherwise = siguienteCoprimo n (base+1)
+
