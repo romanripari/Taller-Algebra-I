@@ -157,13 +157,13 @@ esCarmichael n = esCarmichaelDesde n 1
 -- Auxiliares:
 esCarmichaelDesde :: Integer -> Integer -> Bool
 esCarmichaelDesde n base
- | base == n = True
+ | base >= n = True
  | not (esKPseudoprimo base n) = False
  | otherwise = esCarmichaelDesde n (siguienteCoprimo n (base+1) )
 -- En cada vuelta de la recursión la base es el siguiente coprimo de n, con la función auxiliar siguienteCoprimo
 -- En cada vuelta verificamos si el n es esKPseudoprimo, con k = base
 -- Si en alguna vuelta de la recursión n no es eskPseudoprimo (k = base), entonces no esCarmichael y devolvemos False
--- Si la base aumenta hasta llegar a n, significa que se cumple la condición entre 1 y (n-1) y esCarmichael. Retornamos True
+-- Si la base aumenta hasta llegar a n (o más), significa que se cumple la condición entre 1 y (n-1) y esCarmichael. Retornamos True
 
 siguienteCoprimo :: Integer -> Integer -> Integer
 siguienteCoprimo n base
