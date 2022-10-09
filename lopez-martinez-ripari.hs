@@ -27,7 +27,9 @@ esKPseudoprimo k n
 -- Devolverá True si es divisor del "cálculo" expresado en el where y si es compuesto (no primo)
 
 esPrimo :: Integer -> Bool
-esPrimo n = n /= 1 && menorDivisor n == n
+esPrimo 0 = False
+esPrimo 1 = False
+esPrimo n = menorDivisor n == n
 
 menorDivisor :: Integer -> Integer
 menorDivisor dividendo = primerDivisorDesde dividendo 2
