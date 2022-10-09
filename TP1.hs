@@ -1,6 +1,6 @@
--- López Garro, Román #1
--- Martínez, Fernando #2
--- Ripari, Román Ariel #3
+-- López Garro, Román
+-- Martínez, Fernando
+-- Ripari, Román Ariel
 
 {- Ejercicio 1
 Escribir la función:
