@@ -36,7 +36,7 @@ menorDivisor dividendo = primerDivisorDesde dividendo 2
 
 primerDivisorDesde :: Integer -> Integer -> Integer
 primerDivisorDesde dividendo divisor
- | mod dividendo divisor == 0 = y
+ | mod dividendo divisor == 0 = divisor
  | otherwise = primerDivisorDesde dividendo (divisor+1)
 
 -- Ejercicio 3. cantidad3Pseudoprimos 
@@ -68,7 +68,7 @@ esCarmichael n = esCarmichaelDesde n 1
 -- Auxiliares:
 esCarmichaelDesde :: Integer -> Integer -> Bool
 esCarmichaelDesde n base
- | base = n = True
+ | base >= n = True
  | not (esKPseudoprimo base n) = False
  | otherwise = esCarmichaelDesde n (siguienteCoprimo n (base+1))
 
