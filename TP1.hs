@@ -157,7 +157,7 @@ esCarmichael n = esCarmichaelDesde n 1
 -- Auxiliares:
 esCarmichaelDesde :: Integer -> Integer -> Bool
 esCarmichaelDesde n base
- | base = n = True
+ | base == n = True
  | not (esKPseudoprimo base n) = False
  | otherwise = esCarmichaelDesde n (siguienteCoprimo n (base+1) )
 -- En cada vuelta de la recursión la base es el siguiente coprimo de n, con la función auxiliar siguienteCoprimo
