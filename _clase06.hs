@@ -156,9 +156,15 @@ maximoQue n ( x : xs)
 ordenar :: [Int] -> [Int] 
 ordenar l
  | l == [] = []
- | (tail l) == [] = (head l) : []
- | (head l) > (head (ordenar (tail l))) = (head (ordenar (tail l))) : ordenar ((head l) : tail (ordenar (tail l)) )
- | otherwise = (head l) : ordenar ((head (ordenar (tail l))) : tail (ordenar (tail l)) )
+ | tail l == [] = primero : []
+ | primero < primero_del_resto = primero : ordenar (primero_del_resto : tail resto_ordenado)
+ | otherwise = primero_del_resto : ordenar (primero : tail resto_ordenado)
+
+ where primero_del_resto = head resto_ordenado
+       primero = head l
+       resto_ordenado = ordenar (tail l)
+
+
 
 ordenar_PM :: [Int] -> [Int] 
 ordenar_PM [] = []
