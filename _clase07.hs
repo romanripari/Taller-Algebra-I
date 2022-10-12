@@ -43,3 +43,22 @@ agrego_a_cada_conjunto n (x:xss)
  | otherwise =  agregarC  (agregar n x)  (agrego_a_cada_conjunto n xss)
 
 
+productoCartesiano :: Set Int -> Set Int -> Set (Int, Int)
+productoCartesiano [] ys = []
+productoCartesiano (x:xs) ys = recorre_segundo x ys ++ (productoCartesiano xs ys)
+
+recorre_segundo :: Int -> Set Int -> Set (Int, Int)
+recorre_segundo n [] = []
+recorre_segundo n (x:xs) = (n,x) : (recorre_segundo n (xs))
+
+
+
+
+
+ 
+
+
+
+
+
+
