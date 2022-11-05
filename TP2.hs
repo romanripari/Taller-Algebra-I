@@ -107,10 +107,18 @@ raicesCuadraticaCompleja a b c = (z1, z2)
        z2 = cociente (suma (opuesto b) (snd raices)) (productoRealComplejo 2 a)
        raices = raizCuadrada (suma (potencia b 2) (opuesto (productoRealComplejo 4 (producto a c))))
 
+raicesNEsimas :: Integer -> [Complejo]
+raicesNEsimas k = raicesNEsimasAux (fromInteger (k-1)) (fromInteger k)
+
+raicesNEsimasAux :: Float -> Float -> [Complejo]
+raicesNEsimasAux 0 n = [(1,0)]
+raicesNEsimasAux k n = raiz : raicesNEsimasAux (k-1) n
+ where raiz = (real, imagin) 
+       real = cos ( (pi * 2.0 * k ) / n)
+       imagin = sin ( (pi * 2.0 * k ) / n)
+
 
 {-
-
--- 2.6
 
 -- 3.1
 raicesNEsimas :: Integer -> [Complejo]
