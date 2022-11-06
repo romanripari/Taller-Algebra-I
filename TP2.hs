@@ -109,21 +109,21 @@ raicesCuadraticaCompleja a b c = (z1, z2)
 
 raicesNEsimas :: Integer -> [Complejo]
 raicesNEsimas k = raicesNEsimasAux (fromInteger (k-1)) (fromInteger k)
+-- Tuvimos que pasar a k como Float, de otra manera el cálculo de 
+-- seno y coseno no nos arrojaba un Float sino Integer
 
 raicesNEsimasAux :: Float -> Float -> [Complejo]
 raicesNEsimasAux 0 n = [(1,0)]
 raicesNEsimasAux k n = raiz : raicesNEsimasAux (k-1) n
- where raiz = (real, imagin) 
-       real = cos ( (pi * 2.0 * k ) / n)
-       imagin = sin ( (pi * 2.0 * k ) / n)
+ where raiz = (real, imaginario) 
+       real = cos ((pi * 2.0 * k ) / n)
+       imaginario = sin ((pi * 2.0 * k ) / n)
 
 
-{-
-
--- 3.1
-raicesNEsimas :: Integer -> [Complejo]
-
--- 3.2
 sonRaicesNEsimas :: Integer -> [Complejo] -> Float -> Bool
-
--}
+sonRaicesNEsimas n [] e = True
+sonRaicesNEsimas n zs e
+ | calculo >= e = False
+ | otherwise = sonRaicesNEsimas n (tail zs) e 
+ 
+ where calculo = modulo ( suma (potencia (head zs) n) (opuesto (1,0)) ) 
