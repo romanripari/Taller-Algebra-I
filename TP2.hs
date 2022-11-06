@@ -100,7 +100,6 @@ distintoSigno x y = ((x,-y), (-x, y))
 productoRealComplejo :: Float -> Complejo -> Complejo
 productoRealComplejo real complejo = (real * re complejo, real * im complejo)
 
-
 raicesCuadraticaCompleja :: Complejo -> Complejo -> Complejo -> (Complejo,Complejo)
 raicesCuadraticaCompleja a b c = (z1, z2)
  where z1 = cociente (suma (opuesto b) (fst raices)) (productoRealComplejo 2 a)     
@@ -110,7 +109,7 @@ raicesCuadraticaCompleja a b c = (z1, z2)
 raicesNEsimas :: Integer -> [Complejo]
 raicesNEsimas k = raicesNEsimasAux (fromInteger (k-1)) (fromInteger k)
 -- Tuvimos que pasar a k como Float, de otra manera el cálculo de 
--- seno y coseno no nos arrojaba un Float sino Integer
+-- seno y coseno no nos arrojaba un Float sino Integer, y fallaba
 
 raicesNEsimasAux :: Float -> Float -> [Complejo]
 raicesNEsimasAux 0 n = [(1,0)]
@@ -119,11 +118,18 @@ raicesNEsimasAux k n = raiz : raicesNEsimasAux (k-1) n
        real = cos ((pi * 2.0 * k ) / n)
        imaginario = sin ((pi * 2.0 * k ) / n)
 
-
+{-
 sonRaicesNEsimas :: Integer -> [Complejo] -> Float -> Bool
 sonRaicesNEsimas n [] e = True
 sonRaicesNEsimas n zs e
  | calculo >= e = False
  | otherwise = sonRaicesNEsimas n (tail zs) e 
- 
  where calculo = modulo ( suma (potencia (head zs) n) (opuesto (1,0)) ) 
+-}
+
+-- Forma reducida sin gradas
+sonRaicesNEsimas :: Integer -> [Complejo] -> Float -> Bool
+sonRaicesNEsimas n [] e = True
+sonRaicesNEsimas n zs e = calculo < e && (sonRaicesNEsimas n (tail zs) e )
+ where calculo = modulo ( suma (potencia (head zs) n) (opuesto (1,0)) ) 
+
