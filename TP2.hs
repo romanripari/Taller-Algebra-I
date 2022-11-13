@@ -1,6 +1,6 @@
--- López Garro, Román
--- Martínez, Fernando
--- Ripari, Román Ariel
+-- López Garro, Román romanlopezgarro15@gmail.com
+-- Martínez, Fernando fernandomch42@gmail.com
+-- Ripari, Román Ariel romanripari@gmail.com
 
 type Complejo = (Float,Float)
 
