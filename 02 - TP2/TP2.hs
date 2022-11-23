@@ -45,6 +45,10 @@ potencia :: Complejo -> Integer -> Complejo
 potencia z 1 = z
 potencia z k = producto z (potencia z (k-1))
 
+-- Corrección: los cálculos anteriores (donde arrojaba un doble complejo) solo 
+-- son correctos cuando el determinante es menor a cero.
+-- En el caso de ser mayor o igual a cero, vamos a devolver r1 y r2,
+-- que son dos complejos con parte real distinta (por sumar y restar W) y con parte imaginaria cero
 -- 1.9
 raicesCuadratica :: Float -> Float -> Float -> (Complejo,Complejo)
 raicesCuadratica a b c 
@@ -61,9 +65,9 @@ raicesCuadratica a b c
        discriminante = b * b - 4 * a * c 
 
 calculaDosComplejos :: Float -> Complejo
-calculaDosComplejos a 
- | a >= 0 = (sqrt a, 0)
- | a < 0 =  (0,  sqrt (-a))
+calculaDosComplejos disc 
+ | disc >= 0 = (sqrt disc, 0)
+ | disc < 0 =  (0,  sqrt (-disc))
 
 
 -- 2.1
@@ -74,6 +78,7 @@ modulo (a, b) = sqrt (a*a + b*b)
 distancia :: Complejo -> Complejo -> Float
 distancia z w = modulo (resta z w)
 
+-- Corrección: Corregimos el cálculo de los cuadrantes y quitamos el caso argumento (0,0)
 -- 2.3
 argumento :: Complejo -> Float 
 argumento (a, 0) 
@@ -87,7 +92,6 @@ argumento (a, b)
  | a < 0 && b > 0 = θ + pi          -- Cuadrante 2
  | a < 0 && b < 0 = θ - pi          -- Cuadrante 3
  | a > 0 && b < 0 = θ               -- Cuadrante 4
-
  where θ = atan(b/a)
 
 -- 2.4
@@ -96,6 +100,8 @@ pasarACartesianas r θ = (a, b)
  where a = r * cos θ
        b = r * sin θ
 
+-- Corrección: la condición del signo (iguales o distintos) está
+-- dada por la parte imaginaria del número complejo
 -- 2.5
 raizCuadrada :: Complejo  -> (Complejo,Complejo)
 raizCuadrada (a, b)
