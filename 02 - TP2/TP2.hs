@@ -1,6 +1,7 @@
 -- López Garro, Román romanlopezgarro15@gmail.com
 -- Martínez, Fernando fernandomch42@gmail.com
 -- Ripari, Román Ariel romanripari@gmail.com
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
 
 type Complejo = (Float,Float)
 
@@ -37,7 +38,7 @@ inverso z =  ((fst z') / modCuadrado,
 
 -- 1.7
 cociente :: Complejo -> Complejo -> Complejo
-cociente z z' = producto z (inverso z')
+cociente z w = producto z (inverso w)
 
 -- 1.8
 potencia :: Complejo -> Integer -> Complejo
@@ -46,15 +47,22 @@ potencia z k = producto z (potencia z (k-1))
 
 -- 1.9
 raicesCuadratica :: Float -> Float -> Float -> (Complejo,Complejo)
-raicesCuadratica a b c = (z1, z2)
+raicesCuadratica a b c 
+ | discriminante < 0 = (z1, z2) 
+ | otherwise = (r1, r2)
+
  where z1 = cociente (suma (-b , 0) (conjugado w) ) (2 * a, 0)     
        z2 = cociente (suma (-b , 0) w) (2 * a, 0) 
-       w = calculaDeterminante (b*b - 4 * a * c)
 
+       r1 = cociente (suma (-b , 0) w ) (2 * a, 0)     
+       r2 = cociente (resta (-b , 0) w) (2 * a, 0) 
+       
+       w = calculaDosComplejos discriminante 
+       discriminante = b * b - 4 * a * c 
 
-calculaDeterminante :: Float -> Complejo
-calculaDeterminante a 
- | a >= 0 =  (sqrt a, 0)
+calculaDosComplejos :: Float -> Complejo
+calculaDosComplejos a 
+ | a >= 0 = (sqrt a, 0)
  | a < 0 =  (0,  sqrt (-a))
 
 
@@ -68,7 +76,6 @@ distancia z w = modulo (resta z w)
 
 -- 2.3
 argumento :: Complejo -> Float 
-argumento (0, 0) = 0
 argumento (a, 0) 
  | a < 0 = pi
  | otherwise = 0 
@@ -76,10 +83,11 @@ argumento (0, b)
  | b < 0 = pi * 3/2
  | otherwise = pi * 1/4 
 argumento (a, b)
- | a > 0 && b > 0 = θ
- | a < 0 && b < 0 = θ + pi
- | a > 0 && b < 0 = θ + pi * 1/2
- | a < 0 && b > 0 = θ + pi * 3/2
+ | a > 0 && b > 0 = θ               -- Cuadrante 1
+ | a < 0 && b > 0 = θ + pi          -- Cuadrante 2
+ | a < 0 && b < 0 = θ - pi          -- Cuadrante 3
+ | a > 0 && b < 0 = θ               -- Cuadrante 4
+
  where θ = atan(b/a)
 
 -- 2.4
@@ -89,12 +97,11 @@ pasarACartesianas r θ = (a, b)
        b = r * sin θ
 
 -- 2.5
-raizCuadrada :: Complejo -> (Complejo,Complejo)
+raizCuadrada :: Complejo  -> (Complejo,Complejo)
 raizCuadrada (a, b)
- | calculo > 0 = mismoSigno x y  
+ | b > 0 = mismoSigno x y  
  | otherwise = distintoSigno x y  
- where calculo = 2 * x * y
-       x = sqrt ((modulo (a, b) + a ) / 2 )
+ where x = sqrt ((modulo (a, b) + a ) / 2 )
        y = sqrt ((modulo (a, b) - a ) / 2 )
 
 mismoSigno :: Float -> Float -> (Complejo,Complejo)
